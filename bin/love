@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'ezsig'
+require 'time'
+require 'net/http'
+require 'base64'
+require 'cgi'
+
+signer = EzCrypto::Signer.from_file(File.expand_path("~") + "/.ssh/id_rsa")
+timestamp = Time.now.to_i.to_s
+ 
+data = ""
+
+{'timestamp' => timestamp,
+  'signature' => Base64.encode64(signer.sign(timestamp)),
+  'name' => $*.shift,
+  'reason' => $*.join(' ')}.each do |name, val|
+    data << "#{name}=#{CGI.escape(val)}&"
+end
+
+resp, data = Net::HTTP.new('lovehate.ngenplatform.com', 80).post('/love', data)
+
+puts "#{data}"

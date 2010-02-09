@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    %title= "Love/HATE"
+    %link{:href => '/main.css', :rel => 'stylesheet', :type => 'text/css'}
+  %body
+    #container
+      #header
+        #logo
+          %h1
+            %a{:href => '/'}= "Love/HATE"
+      #content= yield
+      #footer
+        %p#legal= "&mdash; &copy; #{Time.now.strftime('%Y')} ngenera &mdash;"
