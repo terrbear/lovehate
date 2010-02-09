@@ -36,4 +36,25 @@ class Feeling
 	def emotion
 		self.love? ? "love" : "hate"
 	end
+
+	def to_s
+		str = self.emotion.upcase + ": "
+		str += if self.has_user?
+			"@#{self.target.name}: #{self.reason}"
+		else
+			self.target.name.to_s + " " + self.reason.to_s
+		end
+	end
+
+	def has_user?
+		%w(rod rdejuana rodrigo
+		matt mpatterson patterson mepatterson
+		mike roeder mroeder
+		shane ssherman
+		jbell jonbell jon
+		dan danh danhiggins
+		theath terry
+		marc schrifty mschriftman
+		elmo elmore steve).include?(self.target.name)
+	end
 end
