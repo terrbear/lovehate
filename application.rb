@@ -25,7 +25,6 @@ get '/' do
 end
 
 post '/love' do
-	puts "params: #{params.inspect}"
 	return feel(true)
 end
 
@@ -34,12 +33,12 @@ post '/hate' do
 end
 
 def feel(love)
-	if params[:timestamp].blank? || params[:signature].blank? || params[:name].blank? || params[:reason].blank?
+	if params[:timestamp].blank? || params[:signature].blank? || params[:name].blank?
 		return "Required parameters: timestamp, signature, name, reason"
 	end
 	target = User.first(:name => params[:name]) || User.create(:name => params[:name])
 	feeler = User.name_from_signature(Base64.decode64(params[:signature]), params[:timestamp].to_s)
-	return "Could not authenticate with your public key. #{params.inspect}" if feeler.blank?
+	return "Could not authenticate with your public key." if feeler.blank?
 	target.feelings.create(:reason => params[:reason] + " [#{feeler}]", :love => love)
 	return "Feeling added. Don't you feel good?"
 end

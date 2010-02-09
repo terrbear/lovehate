@@ -8,8 +8,6 @@ class Feeling
   property :updated_at, DateTime
 
 	belongs_to :target, 'User', :child_key => [:target_id]
-  
-	validates_present :reason
 
 	class << self
 		def loves
