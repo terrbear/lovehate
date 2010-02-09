@@ -19,7 +19,9 @@ end
 
 # root page
 get '/' do
-  haml :root, :locals => {:feelings => Feeling.all(:order => [:created_at.desc], :limit => 10)}
+  haml :root, 
+		:haml_options => {:escape_html => true},
+		:locals => {:feelings => Feeling.all(:order => [:created_at.desc], :limit => 10)}
 end
 
 post '/love' do
