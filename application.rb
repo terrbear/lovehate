@@ -21,7 +21,7 @@ end
 get '/' do
   haml :root, 
 		:haml_options => {:escape_html => true},
-		:locals => {:feelings => Feeling.all(:order => [:created_at.desc], :limit => 10)}
+		:locals => {:feelings => Feeling.all(:order => [:created_at.desc], :limit => 18)}
 end
 
 post '/love' do
@@ -36,9 +36,11 @@ def feel(love)
 	if params[:timestamp].blank? || params[:signature].blank? || params[:name].blank?
 		return "Required parameters: timestamp, signature, name, reason"
 	end
+
+	return "No dupe timestamps, please." if Feeling.first(:timestamp => params[:timestamp])
 	target = User.first(:name => params[:name]) || User.create(:name => params[:name])
 	feeler = User.name_from_signature(Base64.decode64(params[:signature]), params[:timestamp].to_s)
 	return "Could not authenticate with your public key." if feeler.blank?
-	target.feelings.create(:reason => params[:reason] + " [#{feeler}]", :love => love)
+	target.feelings.create(:reason => params[:reason] + " [#{feeler}]", :love => love, :timestamp => params[:timestamp])
 	return "Feeling added. Don't you feel good?"
 end

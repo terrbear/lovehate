@@ -4,6 +4,7 @@ class Feeling
 	property :id, 				Serial
 	property :reason,			Text
 	property :love,				Boolean
+	property :timestamp, 	String
   property :created_at, DateTime
   property :updated_at, DateTime
 

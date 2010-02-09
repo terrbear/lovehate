@@ -51,4 +51,10 @@ describe 'love action' do
 		post '/love', @params.merge(:signature => "blah whatevz")
 		last_response.body.should == "Could not authenticate with your public key."
 	end
+
+	it "shouldn't let you post the same timestamp twice" do
+		post '/love', @params
+		post '/love', @params
+		last_response.body.should == "No dupe timestamps, please."
+	end
 end
