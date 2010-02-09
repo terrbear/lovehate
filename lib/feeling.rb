@@ -2,7 +2,7 @@ class Feeling
   include DataMapper::Resource
 	
 	property :id, 				Serial
-	property :reason,			String
+	property :reason,			Text
 	property :love,				Boolean
   property :created_at, DateTime
   property :updated_at, DateTime
