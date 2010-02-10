@@ -41,6 +41,8 @@ def feel(love)
 	feeler = User.name_from_signature(Base64.decode64(params[:signature]), params[:timestamp].to_s)
 	return "Could not authenticate with your public key." if feeler.blank?
 
-	Feeling.create(:target => target, :reason => params[:reason] + " [#{feeler}]", :love => love, :timestamp => params[:timestamp])
+	Feeling.create(:target => target, :target_name => params[:name], 
+								 :reason => params[:reason] + " [#{feeler}]", :love => love, 
+								 :timestamp => params[:timestamp])
 	false
 end

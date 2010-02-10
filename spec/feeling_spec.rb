@@ -24,4 +24,8 @@ describe 'feeling' do
 	specify "should be able to get target" do
 		Feeling.make.target.should_not be_nil
 	end
+
+	it "should allow nil targets" do
+		Feeling.new(:reason => "evs").save!
+	end
 end

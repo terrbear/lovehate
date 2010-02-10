@@ -22,6 +22,14 @@ class Feeling
 		def hates
 			all(:love => false)
 		end
+
+		def create(*args)
+			if args && args[0] && args[0].is_a?(Hash) 
+				args[0][:reason] = args[0][:target_name].to_s + args[0][:reason] if args[0][:target].nil?
+				args[0].delete(:target_name)
+			end
+			super(*args)
+		end
 	end
 
 	def love?
@@ -41,7 +49,7 @@ class Feeling
 		str += if self.has_user?
 			"@#{self.target.name}: #{self.reason}"
 		else
-			self.target.name.to_s + " " + self.reason.to_s
+			self.reason.to_s
 		end
 	end
 
