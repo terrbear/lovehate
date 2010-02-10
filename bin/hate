@@ -7,7 +7,11 @@ require 'net/http'
 require 'base64'
 require 'cgi'
 
-signer = EzCrypto::Signer.from_file(File.expand_path("~") + "/.ssh/id_rsa")
+URL = "your-love-hate-instance.com"
+PORT = 80
+PRIVATE_KEY_LOCATION = File.expand_path("~") + "/.ssh/id_rsa"
+
+signer = EzCrypto::Signer.from_file(PRIVATE_KEY_LOCATION)
 timestamp = Time.now.to_i.to_s
  
 data = ""
@@ -19,6 +23,6 @@ data = ""
     data << "#{name}=#{CGI.escape(val)}&"
 end
 
-resp, data = Net::HTTP.new('lovehate.ngenplatform.com', 80).post('/hate', data)
+resp, data = Net::HTTP.new(URL, PORT).post('/hate', data)
 
 puts "#{data}"
