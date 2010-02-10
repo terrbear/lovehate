@@ -41,10 +41,16 @@ describe 'love action' do
 		}.should change(Feeling, :love_count)
 	end
 
-	it "should create a user if it doesn't exist" do
+	it "should create a user if it doesn't exist and is in users.yml" do
 		lambda {
-			post '/love', @params.merge(:name => "rod")
+			post '/love', @params.merge(:name => "user1")
 		}.should change(User, :count)
+	end
+
+	it "shouldn't create a user if it doesn't exist and isn't in users.yml" do
+		lambda {
+			post '/love', @params.merge(:name => "OOGLY")
+		}.should_not change(User, :count)
 	end
 
 	it "should tell you if your key isn't found" do

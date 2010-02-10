@@ -13,11 +13,6 @@ error do
   'Application error'
 end
 
-helpers do
-  # add your helpers here
-end
-
-# root page
 get '/' do
   haml :root, 
 		:haml_options => {:escape_html => true},
@@ -25,11 +20,11 @@ get '/' do
 end
 
 post '/love' do
-	return feel(true)
+	return feel(true) || "Aww, it loves you too!"
 end
 
 post '/hate' do
-	return feel(false)
+	return feel(false) || "GRR!"
 end
 
 def feel(love)
@@ -38,9 +33,14 @@ def feel(love)
 	end
 
 	return "No dupe timestamps, please." if Feeling.first(:timestamp => params[:timestamp])
-	target = User.first(:name => params[:name]) || User.create(:name => params[:name])
+
+	target = User.first(:name => params[:name]) \
+					|| (User.is_username?(params[:name]) && User.create(:name => params[:name])) \
+					|| nil
+
 	feeler = User.name_from_signature(Base64.decode64(params[:signature]), params[:timestamp].to_s)
 	return "Could not authenticate with your public key." if feeler.blank?
-	target.feelings.create(:reason => params[:reason] + " [#{feeler}]", :love => love, :timestamp => params[:timestamp])
-	return "Feeling added. Don't you feel good?"
+
+	Feeling.create(:target => target, :reason => params[:reason] + " [#{feeler}]", :love => love, :timestamp => params[:timestamp])
+	false
 end

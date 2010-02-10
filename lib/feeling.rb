@@ -8,7 +8,7 @@ class Feeling
   property :created_at, DateTime
   property :updated_at, DateTime
 
-	belongs_to :target, 'User', :child_key => [:target_id]
+	belongs_to :target, 'User', :child_key => [:target_id], :required => false
 
 	class << self
 		def loves
@@ -46,14 +46,6 @@ class Feeling
 	end
 
 	def has_user?
-		%w(rod rdejuana rodrigo
-		matt mpatterson patterson mepatterson
-		mike roeder mroeder
-		shane ssherman
-		jbell jonbell jon
-		dan danh danhiggins
-		theath terry
-		marc schrifty mschriftman
-		elmo elmore steve).include?(self.target.name)
+		self.target && YAML::load(File.read("users.yml")).include?(self.target.name)
 	end
 end

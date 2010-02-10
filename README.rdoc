@@ -1,21 +1,21 @@
-= Sinatra Application Template
+= Love/HATE
 
-A base Sinatra application template. Just fork and build. Yay!
-Includes DataMapper, RSpec, and Haml, all ready to go.
+An in-house way to voice happy (and vicious) thoughts for everyone to see.
 
 == Configuration
 
-Dependencies and all configuration is done in <tt>environment.rb</tt>. Your database is also set up here. DataMapper will use sqlite3 by default. Tests use the sqlite3-memory adapter (no configuration needed).
+Love/HATE is a Sinatra application with several gem dependencies. You'll probably first want to install all the necessary gems with <tt>rake gems:install</tt>.
 
-Add your controller actions in <tt>application.rb</tt>. Views for these actions are placed in the <tt>views</tt> directory. Static files, including a stock stylesheet, go in the <tt>public</tt> directory. Models go in the <tt>lib</tt> directory and are auto-loaded. 
+You can set up the database by doing <tt>rake db:migrate RACK_ENV=production</tt>.
 
-== Testing
+== Naming Users
 
-Add your specs in <tt>spec</tt>; just require <tt>spec_helper.rb</tt> to pre-configure the test environment. A number of samples are provided (including a sample model, which can be removed). To run the specs:
+Edit <tt>/users.yml</tt> and add all variants of user's names that you want to recognize. When you love or hate something, if it matches a user's name, it will precede it with an @.
 
-  rake spec
+== Posting
 
-== Getting Started
+Every user who wants to post to your love/HATE instance will need to put their public key (in PEM format, named whatever.pem) in the /public/keys directory. However the key is named will be listed as the name of the user writing the note. 
 
-  rake db:migrate
-  ruby application.rb
+If you already have an id_rsa and an id_rsa.pub in your ~/.ssh directory, you can generate a PEM public key by doing <tt>openssl rsa -pubout -in ~/.ssh/id_rsa > yourname.pem</tt>.
+
+Download and customize the love and hate scripts (change the URL for your love/HATE server) and put them in your path, then just type <tt>love love/HATE, this could be awesome</tt> and watch it appear on your instance.

@@ -21,5 +21,9 @@ class User
 			end
 			nil
 		end
+
+		def is_username?(name)
+			YAML::load(File.read("users.yml")).include?(name)
+		end
 	end
 end

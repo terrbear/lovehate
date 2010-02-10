@@ -29,7 +29,7 @@ namespace :gems do
   desc 'Install required gems'
   task :install do
     required_gems = %w{ sinatra rspec rack-test dm-core dm-validations
-                        dm-aggregates haml }
+                        dm-aggregates haml ezcrypto }
     required_gems.each { |required_gem| system "sudo gem install #{required_gem}" }
   end
 end
