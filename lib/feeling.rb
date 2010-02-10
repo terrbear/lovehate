@@ -25,7 +25,7 @@ class Feeling
 
 		def create(*args)
 			if args && args[0] && args[0].is_a?(Hash) 
-				args[0][:reason] = args[0][:target_name].to_s + args[0][:reason] if args[0][:target].nil?
+				args[0][:reason] = args[0][:target_name].to_s + " " + args[0][:reason] if args[0][:target].nil?
 				args[0].delete(:target_name)
 			end
 			super(*args)
