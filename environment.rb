@@ -3,12 +3,13 @@ gem 'dm-core', '0.10.2'
 gem 'dm-validations', '0.10.2'
 gem 'dm-aggregates', '0.10.2'
 
-require 'dm-core'
-require 'dm-timestamps'
-require 'dm-validations'
-require 'dm-aggregates'
-require 'haml'
-require 'ostruct'
+%w(dm-core dm-timestamps dm-validations dm-aggregates haml ostruct).each do |gem|
+	begin
+		require gem
+	rescue
+		next
+	end
+end
 
 require 'sinatra' unless defined?(Sinatra)
 
