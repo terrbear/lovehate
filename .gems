@@ -1,0 +1,9 @@
+sinatra
+rspec
+rack-test
+dm-core
+dm-validations
+dm-aggregates
+haml
+ezcrypto
+magic_key_auth
