@@ -20,7 +20,8 @@ configure do
                  :url_base => 'http://localhost:4567/'
                )
 
-  DataMapper.setup(:default, "sqlite3:///#{File.expand_path(File.dirname(__FILE__))}/#{Sinatra::Base.environment}.db")
+	sqlite3_file = "sqlite3:///#{File.expand_path(File.dirname(__FILE__))}/#{Sinatra::Base.environment}.db"
+	DataMapper.setup(:default, ENV['DATABASE_URL'] || sqlite3_file)
 
   # load models
   $LOAD_PATH.unshift("#{File.dirname(__FILE__)}/lib")
