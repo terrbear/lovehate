@@ -4,7 +4,7 @@ gem 'dm-validations', '0.10.2'
 gem 'dm-aggregates', '0.10.2'
 gem 'data_objects', '0.10.1'
 
-%w(dm-core dm-timestamps data_objects dm-validations dm-aggregates haml ostruct).each do |gem|
+%w(dm-core dm-timestamps data_objects data_objects dm-validations dm-aggregates haml ostruct).each do |gem|
 	begin
 		require gem
 	rescue Gem::LoadError => ge
