@@ -1,9 +1,7 @@
-sinatra
-rspec
-rack-test
-dm-core
-dm-validations
-dm-aggregates
-haml
-ezcrypto
-magic_key_auth
+sinatra --version 0.9.4
+dm-core --version 0.10.2
+dm-validations --version 0.10.2
+dm-aggregates --version 0.10.2
+haml --version 2.2.20
+ezcrypto --version 0.7.2
+magic_key_auth --version 0.1
