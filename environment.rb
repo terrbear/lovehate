@@ -6,7 +6,7 @@ gem 'dm-aggregates', '0.10.2'
 %w(dm-core dm-timestamps dm-validations dm-aggregates haml ostruct).each do |gem|
 	begin
 		require gem
-	rescue Gem::Exception => ge
+	rescue Gem::LoadError => ge
 		next
 	end
 end
