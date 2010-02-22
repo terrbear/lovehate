@@ -1,4 +1,8 @@
 require 'rubygems'
+gem 'dm-core', '0.10.2'
+gem 'dm-validations', '0.10.2'
+gem 'dm-aggregates', '0.10.2'
+
 require 'dm-core'
 require 'dm-timestamps'
 require 'dm-validations'
