@@ -6,3 +6,4 @@ data_objects -v 0.10.1
 haml --version 2.2.20
 ezcrypto --version 0.7.2
 magic_key_auth --version 0.1.2
+do_postgres -v 0.10.1
