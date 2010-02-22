@@ -1,4 +1,4 @@
-require 'ezsig'
+require 'magic_key_auth'
 
 class User
   include DataMapper::Resource
@@ -15,11 +15,9 @@ class User
 	class << self
 		def name_from_signature(digest, timestamp)
 			raise ArgumentError, "must provide digest and timestamp" if digest.blank? || timestamp.blank?
-			Dir.new("public/keys").entries.each do |key|
-				next unless key =~ /\.pem/
-				return key.gsub(/\.pem/, '') if (EzCrypto::Verifier.from_file("public/keys/" + key).verify(digest, timestamp) rescue false)
-			end
-			nil
+			MagicKeyAuth::SSL.key_location = "public/keys"
+			MagicKeyAuth::SSL.authenticate(:message => timestamp,
+																		 :digest => digest)
 		end
 
 		def is_username?(name)
